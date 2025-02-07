@@ -9,12 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@apollo/client": "^3.12.10",
     "@appbuilder/react": "file:../agora-app-builder/Builds/react-sdk/appbuilder-react-3.0.35-o2adtseoIo.tgz",
-    "nanoid": "^4.0.2",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "react-router-dom": "^5.3.4"
+    "react-dom": "^16.14.0"
   },
   "devDependencies": {
     "@types/react": "^16.14.32",

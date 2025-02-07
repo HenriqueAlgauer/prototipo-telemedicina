@@ -1,5 +1,5 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
+import AppBuilder from "@appbuilder/react";
 import "./App.css";
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
       <button onClick={() => setCount((count) => count + 1)}>
         count is {count}
       </button>
+      <AppBuilder.View />
     </div>
   );
 }
