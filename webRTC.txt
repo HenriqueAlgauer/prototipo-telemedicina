@@ -1,0 +1,30 @@
+WebRTC - é a tecnologia utilizada para fazer uma chamada de vídeo
+    => É nativa em browsers
+    => É uma comunicação P2P (ponto a ponto) não precisa de servidor
+    => Porém para iniciar essa comunicação P2P é necessário passar por um processo chamado ‘Signaling’.
+    => Signaling (sinalização)
+        => Processo que 2 clients fazem um ‘acordo’ do que vão comunicar e como vão comunicar
+        => Para esse processo é necessário um servidor
+        => Existem vários meios de implementar isso, HTTP, WebSocket, etc…
+          => SDP é o formato de dados que a sinalização usa para permitir que os peers negociem a comunicação.
+            => É utiliza o SDP (Session Description Protocol), que contém informações como Codecs suportados (áudio/vídeo), Endereços e portas para comunicação, Parâmetros de configuração da sessão
+          => ICE candidates
+            => São possíveis caminhos de conexão que os dispositivos podem usar para se comunicar. Cada ICE Candidate encontrado é enviado ao outro peer via Signaling. Ambos os dispositivos testam os candidatos para ver quais funcionam. Quando um candidato viável é encontrado, a conexão é estabelecida!
+
+O NAT é um mecanismo usado por roteadores para permitir que múltiplos dispositivos em uma rede privada compartilhem um único endereço IP público na internet. Se ambos os dispositivos estiverem atrás de NATs diferentes, eles não saberão os IPs reais um do outro. É aí que entram os STUN e TURN servers.
+    => STUN (Session Traversal Utilities for NAT)
+    => Um STUN Server ajuda o dispositivo a descobrir seu próprio IP público e a porta usada pelo roteador NAT.
+    => TURN (Traversal Using Relays around NAT)
+    => Se o STUN falhar, o WebRTC recorre a um TURN Server, que age como um relay (servidor intermediário).
+    -> Como o WebRTC lida com NAT na prática?
+        1️⃣ Cada peer coleta seus ICE Candidates:
+        Host Candidates (IP local)
+        STUN Candidates (IP público)
+        TURN Candidates (relay, se necessário)
+        2️⃣ Os candidatos são trocados via Signaling.
+        3️⃣ O WebRTC testa os candidatos para ver quais funcionam.
+        4️⃣ Se STUN funcionar, a conexão é P2P.
+        5️⃣ Se STUN falhar, o TURN Server encaminha os pacotes.
+        6️⃣ A conexão mais eficiente é escolhida automaticamente.
+    -> Não é necessário implementar um STUN server próprio. Existem servidores públicos como: "stun.l.google.com:19302"
+    -> Agora.io já fornece a infraestrutura de STUN/TURN embutida, então não precisa configurar nada manualmente.
